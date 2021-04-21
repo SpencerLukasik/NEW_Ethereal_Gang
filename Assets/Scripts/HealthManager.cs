@@ -35,6 +35,8 @@ public class HealthManager : MonoBehaviour
         curHealth += 5f;
         if (curHealth > maxHealth)
             curHealth = maxHealth;
+        if (curHealth >= (maxHealth/2) && alive)
+           transform.GetChild(7).GetChild(0).GetChild(2).GetComponent<RawImage>().texture = healthyPng;
         UIhealthBar.setMaxHealth(maxHealth, curHealth);
         fade.PopIn();
     }
@@ -61,7 +63,7 @@ public class HealthManager : MonoBehaviour
             UIhealthBar.takeDamage(damage);
             fade.PopIn();
 
-            if (curHealth <= (maxHealth/2) && alive)
+            if (curHealth < (maxHealth/2) && alive)
             {
                 transform.GetChild(7).GetChild(0).GetChild(2).GetComponent<RawImage>().texture = damagedPng;
             }
