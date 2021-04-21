@@ -12,7 +12,6 @@ public class TankHeadMovement : MonoBehaviour
     private GameObject barrel;
     private float cannonballCooldown = 0f;
     public Animator pewpew;
-    private float health = 50f;
     void Start()
     {
         hasTarget = false;
@@ -47,23 +46,21 @@ public class TankHeadMovement : MonoBehaviour
         }
 
     }
+
     void OnCollisionEnter(Collision hit)
     {
         if (hit.gameObject.tag == "Appendage" && hit.transform.parent.parent.parent.GetComponent<Rikayon>().isAttacking)
-            health -= 5f;
+            transform.parent.parent.GetComponent<TankBody>().takeDamage(5);
 
         else if (hit.gameObject.tag == "Spine")
         {
             hit.gameObject.transform.parent = this.gameObject.transform;
             hit.gameObject.GetComponent<Spine>().StopDestroyingMe();
             hit.gameObject.GetComponent<Spine>().active = false;
-            health -= 2f;
+            transform.parent.parent.GetComponent<TankBody>().takeDamage(5);
         }
-        
-
-        if (health <= 0f)
-            Destroy(transform.parent.transform.parent.gameObject);
     }
+    
     public IEnumerator Shoot()
     {
         float waitTime = .5f;
@@ -75,6 +72,7 @@ public class TankHeadMovement : MonoBehaviour
                 GameObject a = Instantiate(cannonball) as GameObject;
                 a.transform.SetParent(barrel.transform);
                 a.transform.localPosition = new Vector3(0f, 0f, 5.8f);
+                a.transform.SetParent(transform.parent.parent.transform);
                 a.GetComponent<Cannonball>().direction = barrel.transform.forward;
                 pewpew.SetTrigger("Fire!");
                 break;

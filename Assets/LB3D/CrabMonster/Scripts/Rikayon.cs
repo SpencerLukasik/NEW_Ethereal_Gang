@@ -11,6 +11,7 @@ public class Rikayon : NetworkBehaviour
 
     //Runtime Interactions
     public GameObject Spine;
+    private PlayerConnection serverConnection;
     public List<GameObject> corpse = new List<GameObject>();
 
     //Animations and Controls
@@ -42,6 +43,7 @@ public class Rikayon : NetworkBehaviour
     void Start()
     {
         StartCoroutine(DelayEnableObjects(5));
+        serverConnection = transform.parent.GetComponent<PlayerConnection>();
     }
 
     // Update is called once per frame
@@ -62,7 +64,7 @@ public class Rikayon : NetworkBehaviour
             fps.SetActive(cameraToggle);
             tps.SetActive(!cameraToggle);
         }
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
         if (isGrounded() && movement.y < 0)
         {
             if (Input.GetKey(KeyCode.Space))
@@ -75,22 +77,20 @@ public class Rikayon : NetworkBehaviour
 				//List of actions
 				if (Input.GetMouseButtonDown(0))
 				{
-            		animator.SetTrigger("Attack_2");
+            		serverConnection.ServerUpdateAnimation("Attack_2");
 					animation_timer = 1f;
                     isAttacking = true;
         		}
 				else if (Input.GetMouseButtonDown(1))
 				{
-					animator.SetTrigger("Attack_3");
+					serverConnection.ServerUpdateAnimation("Attack_3");
 					animation_timer = 1f;
                     isAttacking = true;
 				}
                 else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
 				{
-                    corpse[0].GetComponent<BeanBehavior>().animator.SetBool("isEaten", true);
-                    corpse[0].GetComponent<BeanBehavior>().destroyThisBean();
+                    serverConnection.ServerEatBean(corpse[0]);
                     corpse.Remove(corpse[0]);
-					animator.SetTrigger("Eat_Cycle_1");
 					animation_timer = 2f;
                     StartCoroutine(grow());
                     this.gameObject.GetComponent<HealthManager>().addHealth();
@@ -111,12 +111,12 @@ public class Rikayon : NetworkBehaviour
         //Animate walk cycle
         if (walking && trigger && animation_timer <= 0f)
         {
-            animator.SetTrigger("Walk_Cycle_1");
+            serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
             trigger = false;
         }
         else if (still && trigger && animation_timer <= 0f)
         {
-            animator.SetTrigger("Rest_1");
+            serverConnection.ServerUpdateAnimation("Rest_1");
             trigger = false;
         }
 		

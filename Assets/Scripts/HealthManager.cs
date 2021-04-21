@@ -15,8 +15,6 @@ public class HealthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.GetComponent<Rikayon>().hasAuthority == false)
-            return;
         alive = true;
         curHealth = 10f;
         maxHealth = 10f;
@@ -26,24 +24,19 @@ public class HealthManager : MonoBehaviour
 
     public void addHealth()
     {
-        if (transform.GetComponent<Rikayon>().hasAuthority == false)
-            return;
         if (alive)
-            transform.parent.gameObject.GetComponent<PlayerConnection>().CmdAddHealth();
+            transform.parent.gameObject.GetComponent<PlayerConnection>().ServerAddHealth();
     }
 
     public void takeDamage(float damage)
     {
-        if (transform.GetComponent<Rikayon>().hasAuthority == false)
-            return;
         if (alive)
         {
-            transform.parent.gameObject.GetComponent<PlayerConnection>().CmdTakeDamage(damage);
+            transform.parent.gameObject.GetComponent<PlayerConnection>().ServerTakeDamage(damage);
             if (curHealth <= 0f && alive)
             {
-                fpc.SetActive(false);
-                tpc.SetActive(false);
-                transform.parent.gameObject.GetComponent<PlayerConnection>().CmdKillMyUnit();
+                transform.parent.gameObject.GetComponent<PlayerConnection>().ServerKillMyUnit();
+                transform.parent.gameObject.GetComponent<PlayerConnection>().ClientActivateDeathCam();
                 alive = false;
             }
         }

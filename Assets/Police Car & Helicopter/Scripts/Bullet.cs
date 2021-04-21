@@ -10,7 +10,7 @@ public class Bullet : NetworkBehaviour
     private float DAMAGE = 2f;
     void Start()
     {
-        transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawnSpine(this.gameObject);
+        transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
         Invoke("CmdDestroyMe", .8f);
         direction = transform.parent.transform.forward;
     }
@@ -27,7 +27,7 @@ public class Bullet : NetworkBehaviour
         if (hit.gameObject.tag == "Shell")
         {
             hit.transform.parent.gameObject.GetComponent<HealthManager>().takeDamage(DAMAGE);
-            transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroySpine(this.gameObject);
+            transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
         }
     }
 }

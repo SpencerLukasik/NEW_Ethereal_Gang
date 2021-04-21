@@ -13,7 +13,7 @@ public class Spine : NetworkBehaviour
     {
         parentObject = transform.parent.gameObject;
         VELOCITY = 25f + transform.parent.transform.localScale.x;
-        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerSpawnSpine(this.gameObject);
+        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
         //transform.parent = null;
         Invoke("DestroyMe", 1.2f);
     }
@@ -27,7 +27,7 @@ public class Spine : NetworkBehaviour
 
     void DestroyMe() 
     {
-        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerDestroySpine(this.gameObject);
+        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
         Destroy(this.gameObject);
     }
 

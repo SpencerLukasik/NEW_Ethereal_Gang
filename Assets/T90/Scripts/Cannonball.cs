@@ -10,7 +10,6 @@ public class Cannonball : NetworkBehaviour
     private float DAMAGE = 5f;
     void Start()
     {
-        //environment.CmdSpawnObject(this.gameObject);
         Invoke("DestroyMe", 1.2f);
     }
 
@@ -23,7 +22,6 @@ public class Cannonball : NetworkBehaviour
 
     void DestroyMe() 
     {
-        //environment.CmdDestroyObject(this.gameObject);
         Destroy(this.gameObject);
     }
 

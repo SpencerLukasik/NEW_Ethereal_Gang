@@ -13,7 +13,7 @@ public class HelicopterBehavior : MonoBehaviour
     public GameObject center;
     private Vector3 newDir;
     public bool hasTarget;
-    private float health = 50f;
+    private float health = 40f;
 
     private float shootCooldown = 0f;
 

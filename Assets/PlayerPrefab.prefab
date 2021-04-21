@@ -2365,6 +2365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd59c5d72a7b3fb46b2aa65394d9294d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   fps: {fileID: 9092215074392048676}
   tps: {fileID: 9092215074392048679}
   Spine: {fileID: 1324377120901634668, guid: a1d749cb1208c304fb57dc1af3c48bdc, type: 3}
