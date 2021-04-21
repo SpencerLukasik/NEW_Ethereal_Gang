@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class Spine : NetworkBehaviour
+//using Mirror;
+public class Spine : MonoBehaviour
 {
     private float VELOCITY;
     public Vector3 direction;
@@ -15,7 +15,7 @@ public class Spine : NetworkBehaviour
     {
         parentObject = transform.parent.gameObject;
         VELOCITY = 25f + transform.parent.transform.localScale.x;
-        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
+        //parentObject.transform.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
         audioSrc = this.GetComponent<AudioSource>();
         impale = Resources.Load<AudioClip>("Impale");
         //transform.parent = null;
@@ -32,7 +32,7 @@ public class Spine : NetworkBehaviour
 
     void DestroyMe() 
     {
-        parentObject.transform.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
+        //parentObject.transform.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
         Destroy(this.gameObject);
     }
 
@@ -44,6 +44,5 @@ public class Spine : NetworkBehaviour
     public void impaleSound()
     {
         audioSrc.PlayOneShot(impale);
-        Debug.Log("Played!");
     }
 }

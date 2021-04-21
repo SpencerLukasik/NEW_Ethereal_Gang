@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class Cannonball : NetworkBehaviour
+//using Mirror;
+public class Cannonball : MonoBehaviour
 {
     private float VELOCITY = 30f;
     public Vector3 direction;
