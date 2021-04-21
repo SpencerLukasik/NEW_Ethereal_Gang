@@ -8,13 +8,17 @@ public class TankBody : MonoBehaviour
     void OnCollisionEnter(Collision hit)
     {
         if (hit.gameObject.tag == "Appendage" && hit.transform.parent.parent.parent.GetComponent<Rikayon>().isAttacking)
+        {
+            transform.GetChild(16).GetChild(0).GetComponent<TankHeadMovement>().playStrikeMetal();
             takeDamage(5);
+        }
 
         else if (hit.gameObject.tag == "Spine")
         {
             hit.gameObject.transform.parent = this.gameObject.transform;
             hit.gameObject.GetComponent<Spine>().StopDestroyingMe();
             hit.gameObject.GetComponent<Spine>().active = false;
+            hit.gameObject.GetComponent<Spine>().impaleSound();
             takeDamage(2);
         }
     }
@@ -23,6 +27,10 @@ public class TankBody : MonoBehaviour
     {
         health -= damage;
         if (health <= 0f)
-            Destroy(this.gameObject);
+        {
+            transform.GetChild(16).GetChild(0).GetComponent<TankHeadMovement>().playExplode();
+            transform.GetChild(16).GetChild(0).GetComponent<TankHeadMovement>().hasTarget = false;
+            Destroy(this.gameObject, .05f);
+        }
     }
 }

@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class HelicopterBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Transform target;
     private RaycastHit hit;
     public LayerMask playerMask;
     public GameObject bullet;
     public Vector3 offset;
     public GameObject center;
+    public GameObject explosion;
     private Vector3 newDir;
     public bool hasTarget;
     private float health = 40f;
+    private AudioClip helicopterFire;
+    private AudioClip strikeMetal;
+    private AudioClip explode;
+    private AudioSource audioSrc;
 
     private float shootCooldown = 0f;
 
@@ -21,6 +25,10 @@ public class HelicopterBehavior : MonoBehaviour
     void Start()
     {
         hasTarget = false;
+        audioSrc = this.GetComponent<AudioSource>();
+        helicopterFire = Resources.Load<AudioClip>("HelicopterFire");
+        strikeMetal = Resources.Load<AudioClip>("StrikeMetal");
+        explode = Resources.Load<AudioClip>("Explode");
     }
     void FixedUpdate()
     {
@@ -57,7 +65,10 @@ public class HelicopterBehavior : MonoBehaviour
     void OnCollisionEnter(Collision hit)
     {
         if (hit.gameObject.tag == "Appendage" && hit.transform.parent.parent.parent.GetComponent<Rikayon>().isAttacking)
+        {
             health -= 5f;
+            audioSrc.PlayOneShot(strikeMetal);
+        }
 
         else if (hit.gameObject.tag == "Spine")
         {
@@ -65,11 +76,25 @@ public class HelicopterBehavior : MonoBehaviour
             hit.gameObject.GetComponent<Spine>().StopDestroyingMe();
             hit.gameObject.GetComponent<Spine>().active = false;
             health -= 2f;
+            hit.gameObject.GetComponent<Spine>().impaleSound();
         }
         
 
         if (health <= 0f)
+        {
+            playExplode();
             Destroy(this.gameObject);
+        }
+    }
+
+    public void playExplode()
+    {
+        audioSrc.PlayOneShot(explode);
+        GameObject b = Instantiate(explosion) as GameObject;
+        b.transform.SetParent(transform);
+        b.transform.localPosition = new Vector3(0f, 0f, 0f);
+        b.transform.localScale = new Vector3(5f, 5f, 5f);
+        b.transform.parent = null;
     }
 
     public IEnumerator Shoot()
@@ -84,6 +109,7 @@ public class HelicopterBehavior : MonoBehaviour
                 a.transform.SetParent(this.transform);
                 a.transform.localPosition = new Vector3(0f, 0f, 0f);
                 a.transform.rotation = transform.rotation * Quaternion.Euler(90, 0, 0);
+                audioSrc.PlayOneShot(helicopterFire);
                 break;
             }
             waitTime -= Time.deltaTime;

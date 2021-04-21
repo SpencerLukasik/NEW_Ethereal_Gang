@@ -28,7 +28,6 @@ public class Rikayon : NetworkBehaviour
     public float SPEED = 7f;
     public float GRAVITY = -3f;
     public float DAMAGE = 5f;
-    public float HEALTH = 10f;
 
     //Ground Checking
     public Transform groundCheck;
@@ -42,8 +41,10 @@ public class Rikayon : NetworkBehaviour
 
     void Start()
     {
+        SoundManagerScript.PlayAmbiance();
         StartCoroutine(DelayEnableObjects(5));
         serverConnection = transform.parent.GetComponent<PlayerConnection>();
+        GameObject.Find("TitleScreenCamera").SetActive(false);
     }
 
     // Update is called once per frame

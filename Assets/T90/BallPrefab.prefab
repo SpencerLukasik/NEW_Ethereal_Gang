@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deef095a831ee2e4e8136e055fb700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  explosion: {fileID: 131164, guid: 3c5f4e32698bdb04eaed647f60310510, type: 3}
   direction: {x: 0, y: 0, z: 0}
   active: 1
 --- !u!114 &6711401548238544735

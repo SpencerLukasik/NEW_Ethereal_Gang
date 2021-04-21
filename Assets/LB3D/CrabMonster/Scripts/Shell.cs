@@ -22,6 +22,7 @@ public class Shell : MonoBehaviour
                 hit.gameObject.GetComponent<Spine>().StopDestroyingMe();
                 hit.gameObject.GetComponent<Spine>().active = false;
                 transform.parent.gameObject.GetComponent<HealthManager>().takeDamage(2f);
+                hit.gameObject.GetComponent<Spine>().impaleSound();
             }  
     }
 }
