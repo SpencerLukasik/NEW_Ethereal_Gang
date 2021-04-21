@@ -24,7 +24,6 @@ public class CivilianMovement : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         timer = wanderTimer;
     }
-
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {

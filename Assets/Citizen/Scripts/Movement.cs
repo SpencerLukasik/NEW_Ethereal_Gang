@@ -44,7 +44,6 @@ public class Movement : MonoBehaviour
 
         return navHit.position;
     }
-
     void Update()
     {
         timer += Time.deltaTime;
