@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
-        Invoke("CmdDestroyMe", .8f);
+        Invoke("DestroyMe", .8f);
         direction = transform.parent.transform.forward;
     }
 
@@ -30,5 +30,10 @@ public class Bullet : MonoBehaviour
             //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
             Destrot(this.gameObject);
         }
+    }
+
+    void DestroyMe()
+    {
+        DestroyMe(this.gameObject);
     }
 }
