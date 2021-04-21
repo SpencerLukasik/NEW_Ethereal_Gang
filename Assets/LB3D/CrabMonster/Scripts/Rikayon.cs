@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+//using Mirror;
 public class Rikayon : MonoBehaviour
 {
     //Camera Control
@@ -49,8 +48,8 @@ public class Rikayon : MonoBehaviour
     void Update()
     {
         //Only move personal character
-        // if (hasAuthority == false)
-        //     return;
+        //if (hasAuthority == false)
+        //    return;
 
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E))
@@ -92,6 +91,7 @@ public class Rikayon : MonoBehaviour
 				{
                     //serverConnection.ServerEatBean(corpse[0]);
                     animator.SetTrigger("Eat_Cycle_1");
+                    corpse[0].GetComponent<BeanBehavior>().eatBean();
                     corpse.Remove(corpse[0]);
 					animation_timer = 2f;
                     StartCoroutine(grow());
@@ -114,11 +114,14 @@ public class Rikayon : MonoBehaviour
         if (walking && trigger && animation_timer <= 0f)
         {
             //serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
+            animator.SetTrigger("Walk_Cycle_1");
             trigger = false;
         }
         else if (still && trigger && animation_timer <= 0f)
         {
             //serverConnection.ServerUpdateAnimation("Rest_1");
+
+            animator.SetTrigger("Rest_1");
             trigger = false;
         }
 		
@@ -181,12 +184,15 @@ public class Rikayon : MonoBehaviour
     {
         for (int i = 0; i < frames; i++)
             yield return new WaitForEndOfFrame();
-        if (hasAuthority)
-        {
+        //if (hasAuthority)
+        //{
             cameraToggle = true;
             fps.SetActive(cameraToggle);
             tps.SetActive(!cameraToggle);
             healthStuff.SetActive(true);
-        }
+            SoundManagerScript.PlayAmbiance();
+            //GameObject.Find("TitleScreenCamera").SetActive(false);
+
+        //}
     }
 }

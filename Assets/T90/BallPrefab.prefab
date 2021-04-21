@@ -13,7 +13,10 @@ GameObject:
   - component: {fileID: 461615091539414383}
   - component: {fileID: 6929912585904805229}
   - component: {fileID: 34159421857165735}
+<<<<<<< HEAD
   - component: {fileID: 6711401548238544735}
+=======
+>>>>>>> d2b4ab7f8fb9136f4987c61f6e6b7a866e5471c9
   m_Layer: 10
   m_Name: BallPrefab
   m_TagString: Untagged
@@ -114,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deef095a831ee2e4e8136e055fb700e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   syncMode: 0
   syncInterval: 0.1
   direction: {x: 0, y: 0, z: 0}
@@ -135,3 +139,7 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 
   hasSpawned: 0
+=======
+  direction: {x: 0, y: 0, z: 0}
+  active: 1
+>>>>>>> d2b4ab7f8fb9136f4987c61f6e6b7a866e5471c9

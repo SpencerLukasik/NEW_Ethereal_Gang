@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
-    private PlayerConnection playerConnection;
+    //private PlayerConnection playerConnection;
     void Start()
     {
-        playerConnection = transform.parent.parent.GetComponent<PlayerConnection>();
+        //playerConnection = transform.parent.parent.GetComponent<PlayerConnection>();
     }
     // Start is called before the first frame update
     void OnCollisionEnter(Collision hit)

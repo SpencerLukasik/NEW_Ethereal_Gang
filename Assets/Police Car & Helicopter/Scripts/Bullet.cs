@@ -28,12 +28,12 @@ public class Bullet : MonoBehaviour
         {
             hit.transform.parent.gameObject.GetComponent<HealthManager>().takeDamage(DAMAGE);
             //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
-            Destrot(this.gameObject);
+            DestroyMe();
         }
     }
 
     void DestroyMe()
     {
-        DestroyMe(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

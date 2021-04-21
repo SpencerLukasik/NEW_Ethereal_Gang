@@ -20,9 +20,9 @@ public class UI_Fade : MonoBehaviour
 
     public void PopIn()
     {
+        StopCoroutine(FadeCanvasGroup(uiElement, uiElement.alpha, 0));
         uiElement.alpha = 1;
         timer = 3f;
-
     }
 
      public void FadeOut()

@@ -14,8 +14,8 @@ public class CameraControls : MonoBehaviour
 
     void start()
     {
-        if (transform.parent.GetComponent<Rikayon>().hasAuthority == false)
-            return;
+        //if (transform.parent.GetComponent<Rikayon>().hasAuthority == false)
+        //    return;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
