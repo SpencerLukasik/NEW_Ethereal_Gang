@@ -51,8 +51,8 @@ public class Rikayon : NetworkBehaviour
     void Update()
     {
         //Only move personal character
-        if (hasAuthority == false)
-            return;
+        // if (hasAuthority == false)
+        //     return;
 
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E))
