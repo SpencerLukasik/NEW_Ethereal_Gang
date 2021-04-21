@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class Rikayon : NetworkBehaviour
+//using Mirror;
+public class Rikayon : MonoBehaviour
 {
     //Camera Control
     public GameObject fps;
@@ -42,8 +42,8 @@ public class Rikayon : NetworkBehaviour
     void Start()
     {
         SoundManagerScript.PlayAmbiance();
-        StartCoroutine(DelayEnableObjects(5));
-        serverConnection = transform.parent.GetComponent<PlayerConnection>();
+        //StartCoroutine(DelayEnableObjects(5));
+        //serverConnection = transform.parent.GetComponent<PlayerConnection>();
         GameObject.Find("TitleScreenCamera").SetActive(false);
     }
 
@@ -51,8 +51,8 @@ public class Rikayon : NetworkBehaviour
     void Update()
     {
         //Only move personal character
-        if (hasAuthority == false)
-            return;
+        //if (hasAuthority == false)
+        //    return;
 
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E))
@@ -180,12 +180,12 @@ public class Rikayon : NetworkBehaviour
     {
         for (int i = 0; i < frames; i++)
             yield return new WaitForEndOfFrame();
-        if (hasAuthority)
-        {
+        //if (hasAuthority)
+        //{
             cameraToggle = true;
             fps.SetActive(cameraToggle);
             tps.SetActive(!cameraToggle);
             healthStuff.SetActive(true);
-        }
+        //}
     }
 }
