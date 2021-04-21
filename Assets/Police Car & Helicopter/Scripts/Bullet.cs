@@ -27,7 +27,8 @@ public class Bullet : MonoBehaviour
         if (hit.gameObject.tag == "Shell")
         {
             hit.transform.parent.gameObject.GetComponent<HealthManager>().takeDamage(DAMAGE);
-            transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
+            //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
+            DestroyMe();
         }
     }
 

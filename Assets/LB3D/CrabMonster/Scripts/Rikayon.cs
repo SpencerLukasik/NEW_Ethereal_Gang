@@ -41,10 +41,8 @@ public class Rikayon : MonoBehaviour
 
     void Start()
     {
-        SoundManagerScript.PlayAmbiance();
-        //StartCoroutine(DelayEnableObjects(5));
+        StartCoroutine(DelayEnableObjects(5));
         //serverConnection = transform.parent.GetComponent<PlayerConnection>();
-        GameObject.Find("TitleScreenCamera").SetActive(false);
     }
 
     // Update is called once per frame
@@ -78,19 +76,23 @@ public class Rikayon : MonoBehaviour
 				//List of actions
 				if (Input.GetMouseButtonDown(0))
 				{
-            		serverConnection.ServerUpdateAnimation("Attack_2");
+            		//serverConnection.ServerUpdateAnimation("Attack_2");
+                    animator.SetTrigger("Attack_2");
 					animation_timer = 1f;
                     isAttacking = true;
         		}
 				else if (Input.GetMouseButtonDown(1))
 				{
-					serverConnection.ServerUpdateAnimation("Attack_3");
+					//serverConnection.ServerUpdateAnimation("Attack_3");
+                    animator.SetTrigger("Attack_3");
 					animation_timer = 1f;
                     isAttacking = true;
 				}
                 else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
 				{
-                    serverConnection.ServerEatBean(corpse[0]);
+                    //serverConnection.ServerEatBean(corpse[0]);
+                    animator.SetTrigger("Eat_Cycle_1");
+                    corpse[0].GetComponent<BeanBehavior>().eatBean();
                     corpse.Remove(corpse[0]);
 					animation_timer = 2f;
                     StartCoroutine(grow());
@@ -112,12 +114,14 @@ public class Rikayon : MonoBehaviour
         //Animate walk cycle
         if (walking && trigger && animation_timer <= 0f)
         {
-            serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
+            //serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
+            animator.SetTrigger("Walk_Cycle_1");
             trigger = false;
         }
         else if (still && trigger && animation_timer <= 0f)
         {
-            serverConnection.ServerUpdateAnimation("Rest_1");
+            //serverConnection.ServerUpdateAnimation("Rest_1");
+            animator.SetTrigger("Rest_1");
             trigger = false;
         }
 		
@@ -186,6 +190,9 @@ public class Rikayon : MonoBehaviour
             fps.SetActive(cameraToggle);
             tps.SetActive(!cameraToggle);
             healthStuff.SetActive(true);
+            SoundManagerScript.PlayAmbiance();
+            //GameObject.Find("TitleScreenCamera").SetActive(false);
+
         //}
     }
 }
