@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class Rikayon : NetworkBehaviour
+//using Mirror;
+public class Rikayon : MonoBehaviour
 {
     //Camera Control
     public GameObject fps;
@@ -41,18 +41,16 @@ public class Rikayon : NetworkBehaviour
 
     void Start()
     {
-        SoundManagerScript.PlayAmbiance();
         StartCoroutine(DelayEnableObjects(5));
-        serverConnection = transform.parent.GetComponent<PlayerConnection>();
-        GameObject.Find("TitleScreenCamera").SetActive(false);
+        //serverConnection = transform.parent.GetComponent<PlayerConnection>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Only move personal character
-        if (hasAuthority == false)
-            return;
+        //if (hasAuthority == false)
+        //    return;
 
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E))
@@ -78,19 +76,23 @@ public class Rikayon : NetworkBehaviour
 				//List of actions
 				if (Input.GetMouseButtonDown(0))
 				{
-            		serverConnection.ServerUpdateAnimation("Attack_2");
+            		//serverConnection.ServerUpdateAnimation("Attack_2");
+                    animator.SetTrigger("Attack_2");
 					animation_timer = 1f;
                     isAttacking = true;
         		}
 				else if (Input.GetMouseButtonDown(1))
 				{
-					serverConnection.ServerUpdateAnimation("Attack_3");
+					//serverConnection.ServerUpdateAnimation("Attack_3");
+                    animator.SetTrigger("Attack_3");
 					animation_timer = 1f;
                     isAttacking = true;
 				}
                 else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
 				{
-                    serverConnection.ServerEatBean(corpse[0]);
+                    //serverConnection.ServerEatBean(corpse[0]);
+                    animator.SetTrigger("Eat_Cycle_1");
+                    corpse[0].GetComponent<BeanBehavior>().eatBean();
                     corpse.Remove(corpse[0]);
 					animation_timer = 2f;
                     StartCoroutine(grow());
@@ -112,12 +114,14 @@ public class Rikayon : NetworkBehaviour
         //Animate walk cycle
         if (walking && trigger && animation_timer <= 0f)
         {
-            serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
+            //serverConnection.ServerUpdateAnimation("Walk_Cycle_1");
+            animator.SetTrigger("Walk_Cycle_1");
             trigger = false;
         }
         else if (still && trigger && animation_timer <= 0f)
         {
-            serverConnection.ServerUpdateAnimation("Rest_1");
+            //serverConnection.ServerUpdateAnimation("Rest_1");
+            animator.SetTrigger("Rest_1");
             trigger = false;
         }
 		
@@ -180,12 +184,15 @@ public class Rikayon : NetworkBehaviour
     {
         for (int i = 0; i < frames; i++)
             yield return new WaitForEndOfFrame();
-        if (hasAuthority)
-        {
+        //if (hasAuthority)
+        //{
             cameraToggle = true;
             fps.SetActive(cameraToggle);
             tps.SetActive(!cameraToggle);
             healthStuff.SetActive(true);
-        }
+            SoundManagerScript.PlayAmbiance();
+            //GameObject.Find("TitleScreenCamera").SetActive(false);
+
+        //}
     }
 }

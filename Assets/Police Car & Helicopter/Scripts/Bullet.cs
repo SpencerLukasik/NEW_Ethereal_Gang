@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
-public class Bullet : NetworkBehaviour
+//using Mirror;
+public class Bullet : MonoBehaviour
 {
     private float VELOCITY = 120f;
     private Vector3 direction;
@@ -10,8 +10,8 @@ public class Bullet : NetworkBehaviour
     private float DAMAGE = 2f;
     void Start()
     {
-        transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
-        Invoke("CmdDestroyMe", .8f);
+        //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
+        Invoke("DestroyMe", .8f);
         direction = transform.parent.transform.forward;
     }
 
@@ -27,7 +27,13 @@ public class Bullet : NetworkBehaviour
         if (hit.gameObject.tag == "Shell")
         {
             hit.transform.parent.gameObject.GetComponent<HealthManager>().takeDamage(DAMAGE);
-            transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
+            //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerDestroy(this.gameObject);
+            DestroyMe();
         }
+    }
+
+    void DestroyMe()
+    {
+        Destroy(this.gameObject);
     }
 }

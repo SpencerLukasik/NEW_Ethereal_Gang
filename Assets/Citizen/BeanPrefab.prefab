@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 685688035429360397}
   - component: {fileID: -7082152031717387692}
-  - component: {fileID: 3006355602971664038}
   m_Layer: 0
   m_Name: BeanPrefab
   m_TagString: Bean
@@ -55,23 +54,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3006355602971664038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685688035429360394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &685688036314993338
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +68,6 @@ GameObject:
   - component: {fileID: 685688036314993340}
   - component: {fileID: 8959682605056595796}
   - component: {fileID: 878541291726971714}
-  - component: {fileID: 3029190398701075908}
   - component: {fileID: 8354290513836287793}
   m_Layer: 0
   m_Name: AnimatedBody
@@ -205,23 +186,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 685688036314993340}
   alive: 1
---- !u!114 &3029190398701075908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685688036314993338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!82 &8354290513836287793
 AudioSource:
   m_ObjectHideFlags: 0
