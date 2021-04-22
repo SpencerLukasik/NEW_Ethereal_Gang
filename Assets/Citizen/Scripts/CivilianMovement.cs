@@ -11,6 +11,7 @@ public class CivilianMovement : MonoBehaviour
     public GameObject ChildGameObject;
     // Start is called before the first frame update
     public int minRange = 15;
+    private float waitTime;
     public bool alive;
     public bool still = false;
     public float wanderRadius = 15;
@@ -22,6 +23,7 @@ public class CivilianMovement : MonoBehaviour
         alive = true;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         timer = wanderTimer;
+        waitTime = 1f;
     }
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
@@ -53,6 +55,11 @@ public class CivilianMovement : MonoBehaviour
 
     void Update()
     {
+        if (waitTime >= 0f)
+        {
+            waitTime -= Time.deltaTime;
+            return;
+        }
         timer += Time.deltaTime;
 
         if (alive && !still)

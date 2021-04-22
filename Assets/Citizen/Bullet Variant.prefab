@@ -63,6 +63,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5424291892341783006, guid: 1543796450689594dadd545b89bac8eb, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424291892341783006, guid: 1543796450689594dadd545b89bac8eb, type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5424291892341783007, guid: 1543796450689594dadd545b89bac8eb, type: 3}
       propertyPath: m_Name
       value: Bullet Variant

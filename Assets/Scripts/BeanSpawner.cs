@@ -39,8 +39,9 @@ public class BeanSpawner : MonoBehaviour
         GameObject randomHat = Instantiate(hats[randomHatRange]) as GameObject;
         randomHat.transform.parent = newBean.transform.GetChild(0);
         newBean.transform.GetChild(0).GetComponent<Renderer>().material = colors[randomColorRange];
-        newBean.transform.position = spawnPoints[randomSpawnPoint].transform.position;
+        newBean.transform.parent = GameObject.Find("SpawnPoints").transform;
+        newBean.transform.localPosition = spawnPoints[randomSpawnPoint].transform.localPosition;
         newBean.transform.parent = GameObject.Find("Citizens").transform;
-        Debug.Log("I was spawned!");
+        Debug.Log("I was spawned at " + (randomSpawnPoint+1).ToString());
     }
 }

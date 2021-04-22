@@ -68,6 +68,6 @@ public class BeanBehavior : MonoBehaviour
     {
         eaten = true;
         animator.SetBool("isEaten", true);
-        Destroy(this.gameObject, 2f);
+        Destroy(transform.parent.gameObject, 2f);
     }
 }

@@ -74,8 +74,9 @@ public class Movement : MonoBehaviour
                 {
                     GameObject a = Instantiate(bullet) as GameObject;
                     a.transform.SetParent(this.transform);
-                    a.transform.localPosition = new Vector3(.5f, 0f, .5f);
+                    a.transform.localPosition = new Vector3(.3f, .2f, .3f);
                     a.transform.rotation = transform.rotation * Quaternion.Euler(90, 0, 0);
+                    a.GetComponent<Bullet>().DAMAGE = 2f;
                     audioSrc.PlayOneShot(fire);
                     if (count >= 2)
                     {
