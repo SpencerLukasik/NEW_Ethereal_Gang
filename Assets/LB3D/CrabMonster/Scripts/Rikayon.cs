@@ -11,7 +11,6 @@ public class Rikayon : MonoBehaviour
 
     //Runtime Interactions
     public GameObject Spine;
-    private PlayerConnection serverConnection;
     public List<GameObject> corpse = new List<GameObject>();
 
     //Animations and Controls
@@ -41,22 +40,22 @@ public class Rikayon : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(DelayEnableObjects(5));
-        //serverConnection = transform.parent.GetComponent<PlayerConnection>();
+        cameraToggle = true;
+        fps.SetActive(cameraToggle);
+        tps.SetActive(!cameraToggle);
+        healthStuff.SetActive(true);
+        SoundManagerScript.PlayAmbiance();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Only move personal character
-        //if (hasAuthority == false)
-        //    return;
-
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E))
         {
             spawnSpine();
         }
+        
         if (Input.GetKeyDown(KeyCode.T))
         {
             cameraToggle = !cameraToggle;
@@ -185,21 +184,5 @@ public class Rikayon : MonoBehaviour
             transform.localScale += new Vector3(.001f, .001f, .001f);
             yield return new WaitForEndOfFrame();
         }
-    }
-
-    public IEnumerator DelayEnableObjects(float frames)
-    {
-        for (int i = 0; i < frames; i++)
-            yield return new WaitForEndOfFrame();
-        //if (hasAuthority)
-        //{
-            cameraToggle = true;
-            fps.SetActive(cameraToggle);
-            tps.SetActive(!cameraToggle);
-            healthStuff.SetActive(true);
-            SoundManagerScript.PlayAmbiance();
-            //GameObject.Find("TitleScreenCamera").SetActive(false);
-
-        //}
     }
 }

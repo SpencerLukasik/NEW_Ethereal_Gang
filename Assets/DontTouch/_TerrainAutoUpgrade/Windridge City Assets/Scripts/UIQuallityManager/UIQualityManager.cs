@@ -60,7 +60,7 @@ public class UIQualityManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             canvas.enabled = !canvas.enabled;
         }

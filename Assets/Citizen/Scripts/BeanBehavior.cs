@@ -62,6 +62,7 @@ public class BeanBehavior : MonoBehaviour
             transform.parent.GetComponent<CivilianMovement>().enabled = false;
         else if (transform.parent.GetComponent<Movement>() != null)
             transform.parent.GetComponent<Movement>().enabled = false;
+        transform.parent.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
     }
 
     public void eatBean()

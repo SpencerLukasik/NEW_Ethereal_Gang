@@ -28,7 +28,6 @@ public class DeathFade : MonoBehaviour
 
     public void toggleDeathMenu(){
         gameObject.SetActive(true);
-        transform.GetChild(0).GetChild(1).transform.gameObject.SetActive(true);
         isShown = true;
     }
 

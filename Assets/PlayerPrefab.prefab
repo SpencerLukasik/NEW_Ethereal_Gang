@@ -2433,6 +2433,7 @@ MonoBehaviour:
   fpc: {fileID: 9092215074392048676}
   tpc: {fileID: 9092215074392048679}
   dc: {fileID: 9092215074392048677}
+  deathMenu: {fileID: 4796573716836876085, guid: e69cc1fc89324bf49b4b8b1076366fe1, type: 3}
   fade: {fileID: 9092215074392048487}
   healthyPng: {fileID: 2800000, guid: 0df92b301c6ff6c4ba0ee8eb9b515341, type: 3}
   damagedPng: {fileID: 2800000, guid: afff11347bb53fa4e99c362a4c0aea5a, type: 3}
