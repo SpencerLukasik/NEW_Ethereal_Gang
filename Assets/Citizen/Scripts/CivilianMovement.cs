@@ -70,7 +70,6 @@ public class CivilianMovement : MonoBehaviour
                 bool tooClose = distance < minRange;
                 Vector3 direction = tooClose ? Vector3.back : Vector3.forward;
                 transform.Translate(direction * Time.deltaTime * agent.speed);
-
             }
         }
     }
