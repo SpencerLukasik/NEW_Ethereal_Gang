@@ -25,7 +25,7 @@ public class TankSpawner : MonoBehaviour
             if (curTanks < maxTanks)
             {
                 GameObject a = Instantiate(tank) as GameObject;
-                a.transform.position = spawnPoints[Random.Range(0, 6)].transform.position;
+                a.transform.position = spawnPoints[Random.Range(0, 5)].transform.position;
                 curTanks += 1;
                 if (curTanks > 2)
                 {

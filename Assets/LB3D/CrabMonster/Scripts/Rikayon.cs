@@ -44,7 +44,7 @@ public class Rikayon : MonoBehaviour
         fps.SetActive(cameraToggle);
         tps.SetActive(!cameraToggle);
         healthStuff.SetActive(true);
-        SoundManagerScript.PlayAmbiance();
+        GameObject.Find("canUIQuallityManager").GetComponent<UIQualityManager>().DisableOnStart();
     }
 
     // Update is called once per frame
@@ -63,7 +63,25 @@ public class Rikayon : MonoBehaviour
             tps.SetActive(!cameraToggle);
         }
 
-        if (isGrounded() && movement.y < 0)
+        else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
+		{
+            //serverConnection.ServerEatBean(corpse[0]);
+            animator.SetTrigger("Eat_Cycle_1");
+            if (corpse[0].GetComponent<BeanBehavior>() != null)
+                corpse[0].GetComponent<BeanBehavior>().eatBean();
+            else if (corpse[0].GetComponent<GreenGiant>() != null)
+                corpse[0].GetComponent<GreenGiant>().eatBean();
+            corpse.Remove(corpse[0]);
+			animation_timer = 2f;
+            StartCoroutine(grow());
+            this.gameObject.GetComponent<HealthManager>().addHealth();
+            DAMAGE += .1f;
+
+            if ((transform.localScale.x >= .99f && transform.localScale.x <= 1.01f) || (transform.localScale.x >= 1.99f && transform.localScale.x <= 2.01f) || (transform.localScale.x >= 2.99f && transform.localScale.x <= 3.01f))
+                GameObject.Find("TankSpawner").GetComponent<TankSpawner>().incrementMaxTanks();
+		}
+
+        else if (isGrounded() && movement.y < 0)
         {
             if (Input.GetKey(KeyCode.Space))
                 movement.y = (Mathf.Log(transform.localScale.y)+2);
@@ -86,23 +104,6 @@ public class Rikayon : MonoBehaviour
                     animator.SetTrigger("Attack_3");
 					animation_timer = 1f;
                     isAttacking = true;
-				}
-                else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
-				{
-                    //serverConnection.ServerEatBean(corpse[0]);
-                    animator.SetTrigger("Eat_Cycle_1");
-                    if (corpse[0].GetComponent<BeanBehavior>() != null)
-                        corpse[0].GetComponent<BeanBehavior>().eatBean();
-                    else if (corpse[0].GetComponent<GreenGiant>() != null)
-                        corpse[0].GetComponent<GreenGiant>().eatBean();
-                    corpse.Remove(corpse[0]);
-					animation_timer = 2f;
-                    StartCoroutine(grow());
-                    this.gameObject.GetComponent<HealthManager>().addHealth();
-                    DAMAGE += .1f;
-
-                    if ((transform.localScale.x >= .99f && transform.localScale.x <= 1.01f) || (transform.localScale.x >= 1.99f && transform.localScale.x <= 2.01f) || (transform.localScale.x >= 2.99f && transform.localScale.x <= 3.01f))
-                        GameObject.Find("TankSpawner").GetComponent<TankSpawner>().incrementMaxTanks();
 				}
 			}
 			else

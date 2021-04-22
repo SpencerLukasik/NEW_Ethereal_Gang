@@ -14,11 +14,11 @@ public class TankBody : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, target.position) >= 25f)
             {
-                transform.position += transform.forward*.1f;
+                transform.position += transform.forward*Time.deltaTime*4;
                 var lookPos = target.position - transform.position;
                 lookPos.y = 0;
                 var rotation = Quaternion.LookRotation(lookPos);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * .2f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * .1f);
             }
         }
     }

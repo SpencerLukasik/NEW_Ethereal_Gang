@@ -54,8 +54,6 @@ public class UIQualityManager : MonoBehaviour
             shapeQualitiesList.Add(item.name);
         }
         dpShapeQuality.AddOptions(shapeQualitiesList);
-
-        canvas.enabled = false;
     }
 
     private void Update()
@@ -63,7 +61,17 @@ public class UIQualityManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             canvas.enabled = !canvas.enabled;
+            if (canvas.enabled)
+                Cursor.visible = true;
+            else
+                Cursor.visible = false;
         }
+    }
+
+    public void DisableOnStart()
+    {
+        canvas.enabled = false;
+        Cursor.visible = false;
     }
 
     public void SetPostProcessing(int id)

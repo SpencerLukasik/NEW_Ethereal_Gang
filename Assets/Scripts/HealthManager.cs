@@ -79,6 +79,7 @@ public class HealthManager : MonoBehaviour
                 alive = false;
 
                 deathMenu.toggleDeathMenu();
+                Cursor.visible = true;
             }
        }
     }

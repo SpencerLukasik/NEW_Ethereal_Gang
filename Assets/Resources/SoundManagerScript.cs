@@ -11,8 +11,9 @@ public class SoundManagerScript : MonoBehaviour
     void Start()
     {
         titleScreen = Resources.Load<AudioClip> ("TitleScreenMusic");
-        ambiance = Resources.Load<AudioClip> ("My_Innermost_Apocalypse");
+        ambiance = Resources.Load<AudioClip> ("Ambiance");
         audioSrc = GetComponent <AudioSource> ();
+        PlayAmbiance();
         //PlayTitleMusic();
     }
 
