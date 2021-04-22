@@ -11,23 +11,26 @@ public class CivilianMovement : MonoBehaviour
     public GameObject ChildGameObject;
     // Start is called before the first frame update
     public int minRange = 15;
-
-
-
-
+    public bool alive;
+    public bool still = false;
     public float wanderRadius = 15;
     public float wanderTimer = 3;
 
     private float timer;
     void Start()
     {
+        alive = true;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         timer = wanderTimer;
     }
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") TransformToAvoid = other.transform;
+        if (other.tag == "Player") 
+        {
+            still = false;
+            TransformToAvoid = other.transform;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -52,7 +55,7 @@ public class CivilianMovement : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (ChildGameObject.GetComponent<BeanBehavior>().alive)
+        if (alive && !still)
         {
             if (TransformToAvoid == null)
             {

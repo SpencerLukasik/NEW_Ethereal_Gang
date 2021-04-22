@@ -92,7 +92,10 @@ public class Rikayon : MonoBehaviour
 				{
                     //serverConnection.ServerEatBean(corpse[0]);
                     animator.SetTrigger("Eat_Cycle_1");
-                    corpse[0].GetComponent<BeanBehavior>().eatBean();
+                    if (corpse[0].GetComponent<BeanBehavior>() != null)
+                        corpse[0].GetComponent<BeanBehavior>().eatBean();
+                    else if (corpse[0].GetComponent<GreenGiant>() != null)
+                        corpse[0].GetComponent<GreenGiant>().eatBean();
                     corpse.Remove(corpse[0]);
 					animation_timer = 2f;
                     StartCoroutine(grow());

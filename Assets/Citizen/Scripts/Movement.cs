@@ -7,29 +7,35 @@ public class Movement : MonoBehaviour
     public Transform transformToFollow;
     //NavMesh Agent variable
     UnityEngine.AI.NavMeshAgent agent;
+    private AudioSource audioSrc;
+    private AudioClip fire;
+    private AudioClip reload;
     public GameObject ChildGameObject;
+    public GameObject bullet;
+    
     public int minRange = 7;
     // Start is called before the first frame update
 
     public float wanderRadius = 15;
     public float wanderTimer = 3;
+    private int count = 0;
 
     private float timer;
+    private float shootTimer;
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         timer = wanderTimer;
+        shootTimer = 1f;
+        audioSrc = this.GetComponent<AudioSource>();
+        fire = Resources.Load<AudioClip>("Fire");
+        reload = Resources.Load<AudioClip>("Reload");
     }
 
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") transformToFollow = other.transform;
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player") { }
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
@@ -61,6 +67,27 @@ public class Movement : MonoBehaviour
             }
             else
             {
+                shootTimer -= Time.deltaTime;
+                if (shootTimer > 1.5f && shootTimer < 1.517)
+                    audioSrc.PlayOneShot(reload);
+                if (shootTimer <= 0)
+                {
+                    GameObject a = Instantiate(bullet) as GameObject;
+                    a.transform.SetParent(this.transform);
+                    a.transform.localPosition = new Vector3(.5f, 0f, .5f);
+                    a.transform.rotation = transform.rotation * Quaternion.Euler(90, 0, 0);
+                    audioSrc.PlayOneShot(fire);
+                    if (count >= 2)
+                    {
+                        shootTimer = 2.5f;
+                        count = 0;
+                    }
+                    else
+                    {
+                        shootTimer = .3f;
+                        count += 1;
+                    }
+                }
                 transform.LookAt(transformToFollow);
                 float distance = Vector3.Distance(transform.position, transformToFollow.position);
                 bool tooClose = distance < minRange;

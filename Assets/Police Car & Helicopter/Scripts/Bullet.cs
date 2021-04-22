@@ -4,14 +4,14 @@ using UnityEngine;
 //using Mirror;
 public class Bullet : MonoBehaviour
 {
-    private float VELOCITY = 120f;
+    public float VELOCITY = 120f;
     private Vector3 direction;
     public bool active = true;
-    private float DAMAGE = 5f;
+    public float DAMAGE = 5f;
     void Start()
     {
         //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
-        Invoke("DestroyMe", .8f);
+        Invoke("DestroyMe", 1.2f);
         direction = transform.parent.transform.forward;
     }
 

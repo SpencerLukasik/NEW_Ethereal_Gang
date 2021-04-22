@@ -10,7 +10,7 @@ public class Cannonball : MonoBehaviour
     private float DAMAGE = 40f;
     void Start()
     {
-        Invoke("DestroyMe", 1.2f);
+        Invoke("DestroyMe", 2f);
     }
 
     // Update is called once per frame

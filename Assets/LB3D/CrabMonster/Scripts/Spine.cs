@@ -44,6 +44,5 @@ public class Spine : MonoBehaviour
     public void impaleSound()
     {
         audioSrc.PlayOneShot(impale);
-        Debug.Log("Played!");
     }
 }

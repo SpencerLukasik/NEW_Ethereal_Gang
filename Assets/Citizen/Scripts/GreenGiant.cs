@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeanBehavior : MonoBehaviour
+public class GreenGiant : MonoBehaviour
 {
     public Animator animator;
     private AudioSource audioSrc;
     private AudioClip brutalImpale;
     private AudioClip impaleBean;
+    public Material green;
     public bool alive = true;
     public bool eaten = false;
+    private Rikayon player;
 
 
     void Start()
@@ -41,7 +43,10 @@ public class BeanBehavior : MonoBehaviour
         else if (!alive && !eaten && hit.gameObject.tag == "PlayerEat")
         {
             if (!hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Contains(this.gameObject))
+            {
                 hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Add(this.gameObject);
+                player = hit.transform.parent.GetComponent<Rikayon>();
+            }
         }
     }
     
@@ -50,7 +55,10 @@ public class BeanBehavior : MonoBehaviour
         if (!alive && !eaten && hit.gameObject.tag == "PlayerEat")
         {
             if (hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Contains(this.gameObject))
+            {
                 hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Remove(this.gameObject);
+                player = null;
+            }
         }
     }
 
@@ -67,6 +75,8 @@ public class BeanBehavior : MonoBehaviour
     public void eatBean()
     {
         eaten = true;
+        player.transform.localScale = new Vector3(player.transform.localScale.x*2, player.transform.localScale.y*2, player.transform.localScale.z*2);
+        player.transform.GetChild(2).GetComponent<Renderer>().material = green;
         animator.SetBool("isEaten", true);
         Destroy(this.gameObject, 2f);
     }
