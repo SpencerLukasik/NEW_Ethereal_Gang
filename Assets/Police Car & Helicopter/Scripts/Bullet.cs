@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     private float VELOCITY = 120f;
     private Vector3 direction;
     public bool active = true;
-    private float DAMAGE = 2f;
+    private float DAMAGE = 5f;
     void Start()
     {
         //transform.parent.GetComponent<HelicopterBehavior>().target.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
