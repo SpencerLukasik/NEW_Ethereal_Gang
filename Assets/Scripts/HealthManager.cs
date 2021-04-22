@@ -11,6 +11,7 @@ public class HealthManager : MonoBehaviour
     public GameObject fpc;
     public GameObject tpc;
     public GameObject dc;
+    public DeathFade deathMenu;
     public UI_Fade fade;
     private bool alive;
     public Texture healthyPng;
@@ -76,6 +77,8 @@ public class HealthManager : MonoBehaviour
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(true);
                 alive = false;
+
+                deathMenu.toggleDeathMenu();
             }
        }
     }

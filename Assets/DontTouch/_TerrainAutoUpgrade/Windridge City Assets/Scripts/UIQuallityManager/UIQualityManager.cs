@@ -29,7 +29,7 @@ public class UIQualityManager : MonoBehaviour
         List<string> qualityOptions = new List<string>();
         qualityOptions.AddRange(QualitySettings.names);
         dpQuality.AddOptions(qualityOptions);
-        dpQuality.value = dpQuality.options.Count - 1;
+        dpQuality.value = dpQuality.options.Count - 5;
 
         List<string> postProcessing = new List<string>();
         foreach (var item in volumes)
@@ -69,7 +69,6 @@ public class UIQualityManager : MonoBehaviour
     public void SetPostProcessing(int id)
     {
         postProcessVolume.profile = volumes[id];
-
     }
 
     public void SetQuality(int id)

@@ -100,6 +100,10 @@ public class Rikayon : MonoBehaviour
 					animation_timer = 2f;
                     StartCoroutine(grow());
                     this.gameObject.GetComponent<HealthManager>().addHealth();
+                    DAMAGE += .1f;
+
+                    if ((transform.localScale.x >= .99f && transform.localScale.x <= 1.01f) || (transform.localScale.x >= 1.99f && transform.localScale.x <= 2.01f) || (transform.localScale.x >= 2.99f && transform.localScale.x <= 3.01f))
+                        GameObject.Find("TankSpawner").GetComponent<TankSpawner>().incrementMaxTanks();
 				}
 			}
 			else

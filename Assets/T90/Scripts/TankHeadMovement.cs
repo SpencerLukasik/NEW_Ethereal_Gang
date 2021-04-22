@@ -44,7 +44,7 @@ public class TankHeadMovement : MonoBehaviour
         }
         if (cannonballCooldown > 0f)
             cannonballCooldown -= Time.deltaTime;
-        else if (Physics.Raycast(barrel.transform.position, barrel.transform.TransformDirection(Vector3.forward), out hit, 200f, playerMask))
+        else if (Physics.Raycast(barrel.transform.position, barrel.transform.TransformDirection(Vector3.forward), out hit, 120f, playerMask))
         {
             StartCoroutine(Shoot());
             cannonballCooldown = 4f;
