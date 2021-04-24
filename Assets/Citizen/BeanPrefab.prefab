@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -426869381685271681}
   m_Layer: 0
   m_Name: BeanPrefab
-  m_TagString: Bean
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8354290513836287793}
   m_Layer: 0
   m_Name: AnimatedBody
-  m_TagString: Untagged
+  m_TagString: Bean
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -318,6 +318,7 @@ MonoBehaviour:
   animator: {fileID: 685688036314993340}
   alive: 1
   eaten: 0
+  isGreenGiant: 0
 --- !u!82 &8354290513836287793
 AudioSource:
   m_ObjectHideFlags: 0
@@ -339,7 +340,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

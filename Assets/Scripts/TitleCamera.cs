@@ -4,13 +4,9 @@ public class TitleCamera : MonoBehaviour {
  
     public GameObject target;//the target object
     public GameObject Player;
-    public GameObject thisCam;
-    public GameObject Helicopter;
-    public GameObject Tank;
     public GameObject Title;
     public GameObject Menu;
-    public Camera FirstPersonCam;
-    private float speedMod = 10.0f;//a speed modifier
+    private float speedMod = 5.0f;//a speed modifier
     private Vector3 point;//the coord to the point where the camera looks at
     
      public bool FPCamera = false;
@@ -26,14 +22,10 @@ public class TitleCamera : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Player.SetActive(true);  
-            Helicopter.SetActive(true);
-            Tank.SetActive(true);
             Menu.SetActive(true);
-
-            thisCam.SetActive(false);
             Title.SetActive(false);
             FPCamera = true;
-            FirstPersonCam.gameObject.SetActive(FPCamera);
+            transform.gameObject.SetActive(false);
         }
     }
 

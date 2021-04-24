@@ -11,7 +11,9 @@ public class Rikayon : MonoBehaviour
 
     //Runtime Interactions
     public GameObject Spine;
-    public List<GameObject> corpse = new List<GameObject>();
+    public List<GameObject> bodies = new List<GameObject>();
+    public TankSpawner tankSpawner;
+    private int numEaten;
 
     //Animations and Controls
     public CharacterController controller;
@@ -37,6 +39,10 @@ public class Rikayon : MonoBehaviour
     public bool still = true;
     public bool trigger = false;
     public bool isAttacking = false;
+    public List<GameObject> spineImg;
+    private int curSpines;
+    private int maxSpines;
+    private int growth;
 
     void Start()
     {
@@ -45,13 +51,17 @@ public class Rikayon : MonoBehaviour
         tps.SetActive(!cameraToggle);
         healthStuff.SetActive(true);
         GameObject.Find("canUIQuallityManager").GetComponent<UIQualityManager>().DisableOnStart();
+        numEaten = 0;
+        curSpines = 3;
+        maxSpines = 8;
+        growth = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Shoot spine
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && curSpines > 0)
         {
             spawnSpine();
         }
@@ -63,22 +73,31 @@ public class Rikayon : MonoBehaviour
             tps.SetActive(!cameraToggle);
         }
 
-        else if (Input.GetMouseButtonDown(2) && corpse.Count > 0 && still)
+        else if (Input.GetMouseButtonDown(2) && still)
 		{
-            //serverConnection.ServerEatBean(corpse[0]);
-            animator.SetTrigger("Eat_Cycle_1");
-            if (corpse[0].GetComponent<BeanBehavior>() != null)
-                corpse[0].GetComponent<BeanBehavior>().eatBean();
-            else if (corpse[0].GetComponent<GreenGiant>() != null)
-                corpse[0].GetComponent<GreenGiant>().eatBean();
-            corpse.Remove(corpse[0]);
-			animation_timer = 2f;
-            StartCoroutine(grow());
-            this.gameObject.GetComponent<HealthManager>().addHealth();
-            DAMAGE += .1f;
+            for (int i = 0; i < bodies.Count; i++)
+            {
+                if (bodies[i].GetComponent<BeanBehavior>().alive == false)
+                {
+                    bodies[i].GetComponent<BeanBehavior>().eatBean();
+                    numEaten += 1;
+                    bodies.RemoveAt(i);
+                    i -= 1;
+                }
+            }
+            if (numEaten <= 0)
+                return;
 
-            if ((transform.localScale.x >= .99f && transform.localScale.x <= 1.01f) || (transform.localScale.x >= 1.99f && transform.localScale.x <= 2.01f) || (transform.localScale.x >= 2.99f && transform.localScale.x <= 3.01f))
-                GameObject.Find("TankSpawner").GetComponent<TankSpawner>().incrementMaxTanks();
+            animator.SetTrigger("Eat_Cycle_1");
+			animation_timer = 2f;
+            this.gameObject.GetComponent<HealthManager>().addHealth(numEaten);
+            DAMAGE += .1f * numEaten;
+            StartCoroutine(grow(numEaten));
+            renewSpines(numEaten);
+            numEaten = 0;
+
+            if (growth%7 == 0)
+                tankSpawner.incrementMaxTanks();
 		}
 
         else if (isGrounded() && movement.y < 0)
@@ -159,6 +178,18 @@ public class Rikayon : MonoBehaviour
         controller.Move(movement * SPEED * Time.deltaTime);
     }
 
+    public void renewSpines(int numBodies)
+    {
+        for (int i = 0; i < numBodies*4; i++)
+        {
+            if (curSpines >= maxSpines)
+                break;
+
+            spineImg[curSpines].SetActive(true);
+            curSpines += 1;
+        }
+    }
+
     private bool isGrounded()
     {
         return Physics.CheckBox(groundCheck.position, new Vector3(transform.localScale.x, .15f+transform.localScale.y*.1f, transform.localScale.y), Quaternion.identity, groundMask);
@@ -166,6 +197,8 @@ public class Rikayon : MonoBehaviour
 
     private void spawnSpine()
     {
+        curSpines -= 1;
+        spineImg[curSpines].SetActive(false);
         GameObject a = Instantiate(Spine) as GameObject;
 
         a.transform.parent = transform;
@@ -178,11 +211,11 @@ public class Rikayon : MonoBehaviour
         a.transform.rotation = fps.transform.rotation * Quaternion.Euler(90, 0, 0);
     }
 
-    public IEnumerator grow()
+    public IEnumerator grow(int bodies)
     {
         for (int i = 0; i < 100; i++)
         {
-            transform.localScale += new Vector3(.001f, .001f, .001f);
+            transform.localScale += new Vector3(.001f, .001f, .001f)*bodies;
             yield return new WaitForEndOfFrame();
         }
     }
