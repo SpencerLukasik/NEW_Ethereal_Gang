@@ -13,12 +13,14 @@ public class Rikayon : MonoBehaviour
     public GameObject Spine;
     public List<GameObject> bodies = new List<GameObject>();
     public TankSpawner tankSpawner;
+    public BodyManager bodyManager;
     private int numEaten;
 
     //Animations and Controls
     public CharacterController controller;
     public Animator animator;
     private float animation_timer = 0f;
+    private float eat_timer = 0f;
     Vector3 movement;
     private float x;
     private float z;
@@ -60,6 +62,11 @@ public class Rikayon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (eat_timer > 0)
+        {
+            eat_timer -= Time.deltaTime;
+            return;
+        }
         //Shoot spine
         if (Input.GetKeyDown(KeyCode.E) && curSpines > 0)
         {
@@ -90,10 +97,13 @@ public class Rikayon : MonoBehaviour
 
             animator.SetTrigger("Eat_Cycle_1");
 			animation_timer = 2f;
+            eat_timer = 1.5f;
             this.gameObject.GetComponent<HealthManager>().addHealth(numEaten);
             DAMAGE += .1f * numEaten;
             StartCoroutine(grow(numEaten));
             renewSpines(numEaten);
+            bodyManager.DisableBeanReminder();
+            bodyManager.AddToBodyCount(numEaten);
             numEaten = 0;
 
             if (growth%7 == 0)

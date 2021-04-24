@@ -1,27 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BodyManager : MonoBehaviour
 {
     public Rikayon player;
-    public CanvasGroup reminder;
+    public Text beanCountUINum;
+    public RawImage beanImageUI;
+    public Text textReminder;
+    public Text beansEatenUI;
+    public Color invisible;
+    private int beanCount;
+    private int beansEaten;
+    
     private bool firstKill;
 
     void Start()
     {
         firstKill = true;
+        beansEaten = 0;
     }
     void OnCollisionEnter(Collision hit)
     {
         if (hit.gameObject.tag == "Bean")
         {
+            if (beanCount <= 0)
+                EnableBeanReminder();
+            beanCount += 1;
+            beanCountUINum.text = "x " + beanCount.ToString();
             player.bodies.Add(hit.gameObject);
             if (firstKill)
             {
                 firstKill = false;
-                reminder.gameObject.SetActive(true);
-                StartCoroutine(ActivateReminder(3f));
+                textReminder.gameObject.SetActive(true);
+                StartCoroutine(ActivateTextReminder(3f));
             }
         }
     }
@@ -29,35 +42,54 @@ public class BodyManager : MonoBehaviour
     void OnCollisionExit(Collision hit)
     {
         if (player.bodies.Contains(hit.gameObject))
+        {
             player.bodies.Remove(hit.gameObject);
+            beanCount -= 1;
+            if (beanCount <= 0)
+                DisableBeanReminder();
+            else
+                beanCountUINum.text = "x " + beanCount.ToString();
+        }
     }
 
-    public IEnumerator ActivateReminder(float time)
+    private void EnableBeanReminder()
     {
-        while (true)
+        beanCountUINum.gameObject.SetActive(true);
+        beanImageUI.gameObject.SetActive(true);
+    }
+
+    public void DisableBeanReminder()
+    {
+        beanCount = 0;
+        beanCountUINum.gameObject.SetActive(false);
+        beanImageUI.gameObject.SetActive(false);
+    }
+
+    public void AddToBodyCount(int newBodies)
+    {
+        beansEaten += newBodies;
+        beansEatenUI.text = beansEaten.ToString();
+    }
+
+    public IEnumerator ActivateTextReminder(float time)
+    {
+        while (time > 0)
         {
             time -= Time.deltaTime;
-            if (time <= 0)
-            {
-                StartCoroutine(FadeOut());
-                break;
-            }
-
             yield return new WaitForEndOfFrame();
         }
+
+        StartCoroutine(FadeOut());
     }
 
     public IEnumerator FadeOut()
     {
-        while (true)
+        while (textReminder.color.a >= 0)
         {
-            reminder.alpha -= .01f;
-            if (reminder.alpha <= 0)
-            {
-                reminder.gameObject.SetActive(false);
-                break;
-            }
-            yield return new WaitForEndOfFrame();
+            textReminder.color = Color.Lerp(textReminder.color, invisible, 1f * Time.deltaTime);
+            yield return null;
         }
+
+        textReminder.gameObject.SetActive(false);
     }
 }
