@@ -23,8 +23,8 @@ public class CameraControls : MonoBehaviour
     {
         //if (transform.parent.GetComponent<Rikayon>().hasAuthority == false)
         //    return;
-        mouseX = Input.GetAxis("Mouse X") * SENSATIVITY * Time.deltaTime;
-        mouseY = Input.GetAxis("Mouse Y") * SENSATIVITY * Time.deltaTime;
+        mouseX = Input.GetAxis("Mouse X") * SENSATIVITY; //* Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * SENSATIVITY; //* Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, yClamp, zClamp);

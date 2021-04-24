@@ -9,6 +9,8 @@ public class BeanBehavior : MonoBehaviour
     private AudioClip brutalImpale;
     private AudioClip impaleBean;
     public bool alive = true;
+    public bool eaten = false;
+    public bool isGreenGiant = false;
 
 
     void Start()
@@ -23,7 +25,6 @@ public class BeanBehavior : MonoBehaviour
         {
             //hit.transform.parent.parent.parent.parent.GetComponent<PlayerConnection>().ServerKillBean(this.gameObject);
             killBean();
-            hit.transform.parent.parent.parent.GetComponent<Rikayon>().corpse.Add(this.gameObject);
             audioSrc.PlayOneShot(brutalImpale);
         }
         else if (hit.gameObject.tag == "Spine")
@@ -33,35 +34,27 @@ public class BeanBehavior : MonoBehaviour
                 //hit.transform.parent.parent.GetComponent<PlayerConnection>().ServerKillBean(this.gameObject);
                 killBean();
             //hit.transform.parent.parent.GetComponent<PlayerConnection>().ServerImplant(this.gameObject, hit.gameObject);
-             hit.transform.parent = transform;
+            hit.transform.parent = transform;
             hit.gameObject.GetComponent<Spine>().active = false;
             audioSrc.PlayOneShot(impaleBean);
-        }
-        else if (!alive && hit.gameObject.tag == "PlayerEat")
-        {
-            if (!hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Contains(this.gameObject))
-                hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Add(this.gameObject);
-        }
-    }
-    
-    void OnCollisionExit(Collision hit)
-    {
-        if (!alive && hit.gameObject.tag == "PlayerEat")
-        {
-            if (hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Contains(this.gameObject))
-                hit.transform.parent.gameObject.GetComponent<Rikayon>().corpse.Remove(this.gameObject);
         }
     }
 
     public void killBean()
     {
-        transform.GetComponent<BeanBehavior>().animator.SetBool("isDead", true);
-        transform.GetComponent<BeanBehavior>().alive = false;
+        animator.SetBool("isDead", true);
+        alive = false;
+        if (transform.parent.GetComponent<CivilianMovement>() != null)
+            transform.parent.GetComponent<CivilianMovement>().enabled = false;
+        else if (transform.parent.GetComponent<Movement>() != null)
+            transform.parent.GetComponent<Movement>().enabled = false;
+        transform.parent.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
     }
 
     public void eatBean()
     {
-        transform.GetComponent<BeanBehavior>().animator.SetBool("isEaten", true);
-        Destroy(this.gameObject, 2f);
+        eaten = true;
+        animator.SetBool("isEaten", true);
+        Destroy(transform.parent.gameObject, 2f);
     }
 }

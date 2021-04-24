@@ -7,10 +7,10 @@ public class Cannonball : MonoBehaviour
     private float VELOCITY = 30f;
     public Vector3 direction;
     public bool active = true;
-    private float DAMAGE = 5f;
+    private float DAMAGE = 40f;
     void Start()
     {
-        Invoke("DestroyMe", 1.2f);
+        Invoke("DestroyMe", 2f);
     }
 
     // Update is called once per frame

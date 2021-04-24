@@ -11,6 +11,7 @@ public class HealthManager : MonoBehaviour
     public GameObject fpc;
     public GameObject tpc;
     public GameObject dc;
+    public DeathFade deathMenu;
     public UI_Fade fade;
     private bool alive;
     public Texture healthyPng;
@@ -25,14 +26,14 @@ public class HealthManager : MonoBehaviour
         fade.PopIn();
     }
 
-    public void addHealth()
+    public void addHealth(int numEaten)
     {
         //if (alive)
         //    transform.parent.gameObject.GetComponent<PlayerConnection>().ServerAddHealth();
         //if (curHealth > (maxHealth/2) && alive)
         //    transform.GetChild(7).GetChild(0).GetChild(2).GetComponent<RawImage>().texture = healthyPng;
-        maxHealth += 3f;
-        curHealth += 5f;
+        maxHealth += 3f*numEaten;
+        curHealth += 5f*numEaten;
         if (curHealth > maxHealth)
             curHealth = maxHealth;
         if (curHealth >= (maxHealth/2) && alive)
@@ -76,6 +77,9 @@ public class HealthManager : MonoBehaviour
                 transform.GetChild(5).gameObject.SetActive(false);
                 transform.GetChild(6).gameObject.SetActive(true);
                 alive = false;
+
+                deathMenu.toggleDeathMenu();
+                Cursor.visible = true;
             }
        }
     }

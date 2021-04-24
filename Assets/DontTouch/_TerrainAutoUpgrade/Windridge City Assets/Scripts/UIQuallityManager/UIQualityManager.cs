@@ -29,7 +29,7 @@ public class UIQualityManager : MonoBehaviour
         List<string> qualityOptions = new List<string>();
         qualityOptions.AddRange(QualitySettings.names);
         dpQuality.AddOptions(qualityOptions);
-        dpQuality.value = dpQuality.options.Count - 1;
+        dpQuality.value = dpQuality.options.Count - 5;
 
         List<string> postProcessing = new List<string>();
         foreach (var item in volumes)
@@ -54,22 +54,29 @@ public class UIQualityManager : MonoBehaviour
             shapeQualitiesList.Add(item.name);
         }
         dpShapeQuality.AddOptions(shapeQualitiesList);
-
-        canvas.enabled = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             canvas.enabled = !canvas.enabled;
+            if (canvas.enabled)
+                Cursor.visible = true;
+            else
+                Cursor.visible = false;
         }
+    }
+
+    public void DisableOnStart()
+    {
+        canvas.enabled = false;
+        Cursor.visible = false;
     }
 
     public void SetPostProcessing(int id)
     {
         postProcessVolume.profile = volumes[id];
-
     }
 
     public void SetQuality(int id)

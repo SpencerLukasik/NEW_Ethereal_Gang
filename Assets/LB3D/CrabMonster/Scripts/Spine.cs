@@ -15,10 +15,9 @@ public class Spine : MonoBehaviour
     {
         parentObject = transform.parent.gameObject;
         VELOCITY = 25f + transform.parent.transform.localScale.x;
-        //parentObject.transform.parent.GetComponent<PlayerConnection>().ServerSpawn(this.gameObject);
         audioSrc = this.GetComponent<AudioSource>();
         impale = Resources.Load<AudioClip>("Impale");
-        //transform.parent = null;
+        transform.parent = null;
         Invoke("DestroyMe", 1.2f);
         
     }
@@ -44,6 +43,5 @@ public class Spine : MonoBehaviour
     public void impaleSound()
     {
         audioSrc.PlayOneShot(impale);
-        Debug.Log("Played!");
     }
 }

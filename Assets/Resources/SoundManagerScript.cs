@@ -13,6 +13,7 @@ public class SoundManagerScript : MonoBehaviour
         titleScreen = Resources.Load<AudioClip> ("TitleScreenMusic");
         ambiance = Resources.Load<AudioClip> ("Ambiance");
         audioSrc = GetComponent <AudioSource> ();
+        PlayAmbiance();
         //PlayTitleMusic();
     }
 
