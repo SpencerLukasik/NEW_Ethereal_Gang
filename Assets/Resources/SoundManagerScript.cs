@@ -4,7 +4,27 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    // public Music[] music;
+    public AudioSource[] playlist;
+
+    public int songIndex = 0;
+
+    public void nextSong(){
+        playlist[songIndex].Stop(); 
+        songIndex = (songIndex + 1) % playlist.Length;
+        
+        playlist[songIndex].Play();
+    }
+
+    public void previousSong(){
+        playlist[songIndex].Stop();
+        songIndex--;
+
+        if(songIndex < 0){
+            songIndex += playlist.Length;
+        }
+
+        playlist[songIndex].Play();
+    }
 
     // void Awake(){
     //     foreach(Music m in music)
@@ -29,29 +49,30 @@ public class SoundManagerScript : MonoBehaviour
     // }
     //}
     // Start is called before the first frame update
-    public static AudioClip ambiance;
-    public static AudioClip titleScreen;
-    static AudioSource audioSrc;
-    void Start()
-    {
-        titleScreen = Resources.Load<AudioClip> ("TitleScreenMusic");
-        ambiance = Resources.Load<AudioClip> ("My Innermost Apocalypse");
-        audioSrc = GetComponent <AudioSource> ();
-        PlayAmbiance();
-        //PlayTitleMusic();
-    }
 
-    public static void PlayAmbiance()
-    {
-        audioSrc.Stop();
-        audioSrc.clip = ambiance;
-        audioSrc.Play();
-    }
+    // public static AudioClip ambiance;
+    // public static AudioClip titleScreen;
+    // static AudioSource audioSrc;
+    // void Start()
+    // {
+    //     titleScreen = Resources.Load<AudioClip> ("TitleScreenMusic");
+    //     ambiance = Resources.Load<AudioClip> ("My Innermost Apocalypse");
+    //     audioSrc = GetComponent <AudioSource> ();
+    //     PlayAmbiance();
+    //     //PlayTitleMusic();
+    // }
 
-    public static void PlayTitleMusic()
-    {
-        audioSrc.Stop();
-        audioSrc.clip = titleScreen;
-        audioSrc.Play();
-    }
+    // public static void PlayAmbiance()
+    // {
+    //     audioSrc.Stop();
+    //     audioSrc.clip = ambiance;
+    //     audioSrc.Play();
+    // }
+
+    // public static void PlayTitleMusic()
+    // {
+    //     audioSrc.Stop();
+    //     audioSrc.clip = titleScreen;
+    //     audioSrc.Play();
+    // }
 }
