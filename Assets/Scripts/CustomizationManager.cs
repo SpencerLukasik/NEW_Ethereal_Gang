@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomizationManager : MonoBehaviour
 {
@@ -17,14 +18,48 @@ public class CustomizationManager : MonoBehaviour
     public GameObject Controls;
     public bool FPCamera = false;
     [SerializeField] private SkinnedMeshRenderer skinColorRender;
+    [SerializeField] private Image previewcrossHair;
+    [SerializeField] private Image FPcrossHair;
+    [SerializeField] private Image TPcrossHair;
 
     //HeadAccessories
     public GameObject[] headAccessories;
     public Color32[] skinColor;
+    public Color32[] crosshairColor;
+    public GameObject[] randomizedArray;
 
     public int skinColorIndex = 0;
     public int accessoryIndex = 0;
+    public int crosshairColorIndex = 0;
+     
+    public void Randomize(){
+        // Debug.Log("Clicked");
+        // //GameObject randomize = randomizedArray[Random.Range(0, headAccessories.Length)]; 
+        // var randomheadIndex= (int)(Random.value * headAccessories.Length);
+        // var randomskinIndex= (int)(Random.value * skinColor.Length);
+        // var randomcrossIndex= (int)(Random.value * crosshairColor.Length);
+        // // Random.Range(0,skinColor.Length);
+        // // Random.Range(0,crosshairColor.Length);
+    }
+    public void nextcrosshairColor(){
+        //skinColor[skinColorIndex].SetActive(false);
+        
+        previewcrossHair.color=crosshairColor[crosshairColorIndex];
+        FPcrossHair.color=crosshairColor[crosshairColorIndex];
+        TPcrossHair.color=crosshairColor[crosshairColorIndex];
+        crosshairColorIndex = (crosshairColorIndex + 1) % crosshairColor.Length;
+        //skinColor[skinColorIndex].SetActive(true);
+    }
+    public void previouscrosshairColor(){
+ 
+        crosshairColorIndex--;
 
+        if(crosshairColorIndex < 0){
+            crosshairColorIndex += crosshairColor.Length;
+        }
+
+        //skinColor[skinColorIndex].SetActive(true);
+    }
     public void nextSkinColor(){
         //skinColor[skinColorIndex].SetActive(false);
         
@@ -64,6 +99,7 @@ public class CustomizationManager : MonoBehaviour
     public void StartGame(){
         PlayerPrefs.SetInt("accessoryIndex", accessoryIndex);
         PlayerPrefs.SetInt("skinColorIndex", skinColorIndex); 
+        PlayerPrefs.SetInt("crosshairColorIndex", crosshairColorIndex); 
 
         HealthBar.SetActive(true);
         PlayerMouseMvmt.SetActive(true);
